@@ -15,6 +15,10 @@
             @csrf
             <button type="submit" class="btn btn-info">Create coupon</button>
         </form>
+        <form action="{{route('update.coupon')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <button type="submit" class="btn btn-info">Update coupon</button>
+        </form>
     </div>
     <table class="table table-striped">
         <thead>

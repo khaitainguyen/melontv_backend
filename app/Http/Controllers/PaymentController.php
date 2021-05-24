@@ -8,6 +8,7 @@ use Stripe\Charge;
 use Stripe\Checkout\Session;
 use Stripe\Coupon;
 use Stripe\Stripe;
+use Stripe\StripeClient;
 use Stripe\Token;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -17,24 +18,6 @@ class PaymentController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
     }
-    // public function index()
-    // {
-    //     return view('payment');
-    // }
-    // public function makePayment(Request $request)
-    // {
-    //     Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-    //     Stripe\Charge::create ([
-    //             "amount" => 150 * 100,
-    //             "currency" => "eur",
-    //             "source" => $request->stripeToken,
-    //             "description" => "Make payment and chill." 
-    //     ]);
-  
-    //     Session::flash('success', 'Payment successfully made.');
-          
-    //     return back();
-    // }
 
     public function stripe()
     {
@@ -129,11 +112,19 @@ class PaymentController extends Controller
     }
     public function update(Request $request)
     {
-        // $coupon = Coupon::update();
+        $stripe = new StripeClient(
+            'sk_test_51ItPdhCnmaP0SoyguZgygHdQCNU2OAaD14UN1WcyO8ysyeH66jsZT3DuIxTU5of41fk3wSOwgWZUQNq8rTEVXKfV00voQhT0fD'
+          );
+          $stripe->coupons->update(
+            'SawDEccv',
+            ['name' => '30% sales off',]
+          );
+            dd($stripe);
     }
     public function show()
     {
-        return redirect('https://api.stripe.com/v1/coupons');
+        $coupon = Coupon::all();
+        dd($coupon);
         
     }
 }
