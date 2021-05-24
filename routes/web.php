@@ -21,3 +21,7 @@ Route::get('/', function () {
 
 Route::get('/stripe', [PaymentController::class, 'stripe']);
 Route::post('/payment', [PaymentController::class, 'payStripe'])->name('payment');
+
+Route::get('/coupon', [PaymentController::class, 'coupon']);
+Route::post('/coupon', [PaymentController::class, 'createCoupon'])->name('create.coupon');
+Route::get('/show', [PaymentController::class, 'show']);
