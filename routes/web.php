@@ -24,5 +24,17 @@ Route::post('/payment', [PaymentController::class, 'payStripe'])->name('payment'
 
 Route::get('/coupon', [PaymentController::class, 'coupon']);
 Route::post('/coupon', [PaymentController::class, 'createCoupon'])->name('create.coupon');
+
 Route::get('/show', [PaymentController::class, 'show']);
 Route::post('/update', [PaymentController::class, 'update'])->name('update.coupon');
+
+// customer
+Route::get( '/list', [PaymentController::class, 'listCustomer']);
+Route::post('/customer', [PaymentController::class, 'customer'])->name('customer');
+
+//payment method
+Route::post( '/attach', [PaymentController::class, 'attachMethod'])->name('attach');
+Route::post('/payment', [PaymentController::class, 'paymentMethod'])->name('payment');
+
+//subcription
+Route::post('/subscription', [PaymentController::class, 'subscription'])->name('subscription');

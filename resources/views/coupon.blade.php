@@ -19,6 +19,22 @@
             @csrf
             <button type="submit" class="btn btn-info">Update coupon</button>
         </form>
+        <form action="{{route('customer')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <button type="submit" class="btn btn-info">Create customer</button>
+        </form>
+        <form action="{{route('payment')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <button type="submit" class="btn btn-info">Create payment method</button>
+        </form>
+        <form action="{{route('attach')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <button type="submit" class="btn btn-info">Create attach payment method</button>
+        </form>
+        <form action="{{route('subscription')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <button type="submit" class="btn btn-info">Create subscription </button>
+        </form>
     </div>
     <table class="table table-striped">
         <thead>

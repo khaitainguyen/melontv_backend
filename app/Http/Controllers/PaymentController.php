@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Stripe\Charge;
 use Stripe\Checkout\Session;
 use Stripe\Coupon;
+use Stripe\Customer;
+use Stripe\PaymentMethod;
 use Stripe\Stripe;
 use Stripe\StripeClient;
+use Stripe\Subscription;
 use Stripe\Token;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -126,5 +129,60 @@ class PaymentController extends Controller
         $coupon = Coupon::all();
         dd($coupon);
         
+    }
+    public function listCustomer()
+    {
+        $customer = Customer::all();
+        dd($customer);
+    }
+    public function customer()
+    {
+        $customers = Customer::create([
+            'address' => [
+                'city' => 'Tokyo',
+                'country' => 'JP',
+                'line1' => 'Nanda'
+                ],
+            'email' => 'melon@gmail.com',
+            'name' => 'Kawasaki',
+            'phone' => '01236688',
+            'description' => 'Test customer create'
+        ]);
+        dd($customers);
+    }
+    public function paymentMethod()
+    {
+        $payment = PaymentMethod::create([
+            'type' => 'card',
+            'card' => [
+              'number' => '4242424242424242',
+              'exp_month' => 8,
+              'exp_year' => 2024,
+              'cvc' => '333',
+            ],
+          ]);
+        dd($payment);
+    }
+    public function attachMethod()
+    {
+        $stripe = new StripeClient(
+            'sk_test_51ItPdhCnmaP0SoyguZgygHdQCNU2OAaD14UN1WcyO8ysyeH66jsZT3DuIxTU5of41fk3wSOwgWZUQNq8rTEVXKfV00voQhT0fD'
+          );
+          $attach = $stripe->paymentMethods->attach(
+            'pm_1IuvtcCnmaP0SoygD7erAplD',
+            ['customer' => 'cus_JXxhnArP8xN4WS']
+          );
+        dd($attach);
+    }
+    public function subscription()
+    {
+        $subcription = Subscription::create([
+            'customer' => 'cus_JXxhnArP8xN4WS',
+            'default_payment_method' => 'pm_1IuvtcCnmaP0SoygD7erAplD',
+            'items' => [
+                ['price' => 'price_1IuYpxCnmaP0SoygxR2dFHCJ'],
+            ],
+        ]);
+        dd($subcription);
     }
 }
